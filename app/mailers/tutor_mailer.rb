@@ -5,10 +5,6 @@ class TutorMailer < ApplicationMailer
 		@tutee = Tutee.find_by_id(tutee_id)
 		@request = Request.find_by_id(request_id)
 		@tutor_message = tutor_message
-		puts @tutor
-		puts @tutee
-		puts @request
-		puts @tutor_message
 		mail(to: [@tutee.email, @tutor.email], subject: 'CS370 Tutoring: Tutor Matched!')
 	end
 
