@@ -17,7 +17,6 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'mini_racer', platforms: :ruby
 
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -45,8 +44,6 @@ gem 'devise'
 gem 'rspec-activemodel-mocks'
 
 #use for zipping and downloading table csv's
-gem 'rubyzip'
-gem 'tempfile'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -93,9 +90,7 @@ group :test do
   gem 'guard-rspec'
   gem 'simplecov', :require => false
   gem 'cucumber-rails', :require => false
-  gem 'cucumber-rails-training-wheels' # basic imperative step defs
   gem 'selenium-webdriver', '~> 4.0.0.rc1'
-  gem 'webdriver', require: false
   # gem 'database_cleaner' # required by Cucumber
   gem "rspec"
   #gem 'factory_girl_rails', :require => false # if using FactoryGirl
