@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2021-09-17T20:29:44-07:00">2021-09-17T20:29:44-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2021-09-17T20:37:58-07:00">2021-09-17T20:37:58-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,7 +25,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         4.55
+         4.53
        </span>
     </span> hits/line)
   </h2>
@@ -57,7 +57,7 @@
         <td>89</td>
         <td>58</td>
         <td>31</td>
-        <td>2.5</td>
+        <td>2.4</td>
       </tr>
       
       <tr>
@@ -227,7 +227,7 @@
         <td>15</td>
         <td>15</td>
         <td>0</td>
-        <td>44.1</td>
+        <td>43.7</td>
       </tr>
       
       <tr>
@@ -988,20 +988,20 @@
           <code class="ruby">  def manage_semester</code>
         </li>
       
-        <li class="covered" data-hits="11" data-linenumber="54">
-          <span class="hits">11</span>
+        <li class="covered" data-hits="10" data-linenumber="54">
+          <span class="hits">10</span>
           
           <code class="ruby">    @signups_allowed = Admin.signups_allowed?</code>
         </li>
       
-        <li class="covered" data-hits="11" data-linenumber="55">
-          <span class="hits">11</span>
+        <li class="covered" data-hits="10" data-linenumber="55">
+          <span class="hits">10</span>
           
           <code class="ruby">    @tutor_types = Admin.tutor_types</code>
         </li>
       
-        <li class="covered" data-hits="11" data-linenumber="56">
-          <span class="hits">11</span>
+        <li class="covered" data-hits="10" data-linenumber="56">
+          <span class="hits">10</span>
           
           <code class="ruby">    @course_list = Admin.course_list</code>
         </li>
@@ -1504,8 +1504,8 @@
           <code class="ruby">  def check_logged_in</code>
         </li>
       
-        <li class="covered" data-hits="33" data-linenumber="140">
-          <span class="hits">33</span>
+        <li class="covered" data-hits="32" data-linenumber="140">
+          <span class="hits">32</span>
           
           <code class="ruby">    if session[:admin_logged_in].nil? or not session[:admin_logged_in]</code>
         </li>
@@ -1546,8 +1546,8 @@
           <code class="ruby">  def set_admin</code>
         </li>
       
-        <li class="covered" data-hits="43" data-linenumber="147">
-          <span class="hits">43</span>
+        <li class="covered" data-hits="42" data-linenumber="147">
+          <span class="hits">42</span>
           
           <code class="ruby">    @admin = Admin.find(Admin.master_admin_index)</code>
         </li>
@@ -4509,8 +4509,8 @@
           <code class="ruby">      # All admins access/modify the same row</code>
         </li>
       
-        <li class="covered" data-hits="161" data-linenumber="7">
-          <span class="hits">161</span>
+        <li class="covered" data-hits="157" data-linenumber="7">
+          <span class="hits">157</span>
           
           <code class="ruby">      return 1</code>
         </li>
@@ -4533,8 +4533,8 @@
           <code class="ruby">    def course_list</code>
         </li>
       
-        <li class="covered" data-hits="67" data-linenumber="11">
-          <span class="hits">67</span>
+        <li class="covered" data-hits="66" data-linenumber="11">
+          <span class="hits">66</span>
           
           <code class="ruby">      self.find_by_id(master_admin_index).course_list</code>
         </li>
@@ -4557,8 +4557,8 @@
           <code class="ruby">    def tutor_types</code>
         </li>
       
-        <li class="covered" data-hits="11" data-linenumber="15">
-          <span class="hits">11</span>
+        <li class="covered" data-hits="10" data-linenumber="15">
+          <span class="hits">10</span>
           
           <code class="ruby">      self.find_by_id(master_admin_index).tutor_types</code>
         </li>
@@ -4605,8 +4605,8 @@
           <code class="ruby">    def signups_allowed?</code>
         </li>
       
-        <li class="covered" data-hits="25" data-linenumber="23">
-          <span class="hits">25</span>
+        <li class="covered" data-hits="24" data-linenumber="23">
+          <span class="hits">24</span>
           
           <code class="ruby">      self.find_by_id(master_admin_index).signups_allowed</code>
         </li>
