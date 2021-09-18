@@ -1,39 +1,34 @@
 Rails.application.routes.draw do
 
-  devise_for :tutors, controllers: {registrations: 'tutors/registrations'}, skip:['sessions']
-  devise_for :tutees, skip:['registrations','sessions']
-  devise_scope :tutor do
-    get '/' => 'welcome#index', as: :new_tutor_session
-    post '/tutors/sign_in' => 'devise/sessions#create', as: :tutor_session
-    delete '/tutors/sign_out' => 'devise/sessions#destroy', as: :destroy_tutor_session
+  ##USERS
+  devise_for :users, controllers: {registrations: 'users/registrations'}, path: ''
+  devise_scope :user do
+    root to: 'devise/sessions#new', as: :homepage
   end
+  get 'dashboard', to: 'users#show'
 
-  devise_scope :tutee do
-    get '/' => 'welcome#index', as: :new_tutee_session
-    post '/tutees/sign_in' => 'devise/sessions#create', as: :tutee_session
-    delete '/tutees/sign_out' => 'devise/sessions#destroy', as: :destroy_tutee_session
+  ##TUTORS
+  get '/match' => 'tutors#match', as: :tutor_match
+  post '/confirm_meeting' => 'tutors#confirm_meeting', as: :tutor_confirm_meeting
+  post '/finish_meeting' => 'tutors#finish_meeting', as: :tutor_finish_meeting
+  delete '/delete_meeting' => 'tutors#delete_meeting', as: :tutor_delete_meeting
 
-    get '/tutees/cancel' => 'tutees/registrations#cancel', as: :cancel_tutee_registration
-    get '/tutees/sign_up' => 'tutees/registrations#new', as: :new_tutee_registration
-    get '/tutees/:id/edit' => 'tutees/registrations#edit', as: :edit_tutee_registration
-    patch '/tutees/:id' => 'tutees/registrations#update', as: :tutee_registration
-    put '/tutees/:id' => 'tutees/registrations#update'
-    post '/tutees/' => 'tutees/registrations#create'
-  end
+  ##REQUESTS
+  resources :requests, only: [:create, :update]
 
-  get 'tutees/:tutee_id/meetings' => 'meetings#show', as: :tutee_meetings
-  get 'tutees/:tutee_id/history' => 'requests#history', as: :request_history_tutee
+  ##EVALUATIONS
+  resources :evaluations, only: [:update]
+  get 'evaluations/view_responses' => 'evaluations#view_responses'
 
-  root "welcome#index", as: :homepage
-  get '/welcome/get_login_form/' => 'welcome#get_login_form', as: :welcome_get_login_form
-  get '/tutors/:tutor_id/match' => 'tutors#match', as: :tutor_match
-  post '/tutors/:tutor_id/confirm_meeting' => 'tutors#confirm_meeting', as: :tutor_confirm_meeting
-  post 'tutors/:tutor_id/meetings/:meeting_id' => 'tutors#finish_meeting', as: :meetings_done
-  delete 'tutors/:tutor_id/meetings/:meeting_id' => 'tutors#delete_meeting', as: :tutor_delete_meeting
+  ##MEETINGS
+  get 'meetings/panel_info' => 'meetings#panel_info'
+
+  ##ADMIN
+  get '/admin' => 'admins#new', as: :new_admin_session
+  post '/admin' => 'admins#create', as: :admin_session
+  delete '/admin/sign_out' => 'admins#destroy', as: :admin_logout
 
   get 'admins/home' => 'admins#home', as: :admin_home
-  post '/' => 'admins#createAdminSession', as: :admin_login
-  get '/' => 'admins#destroyAdminSession', as: :admin_logout
   get 'admins/manage_semester' => 'admins#manage_semester', as: :admin_manage_semester
   get 'admins/toggle_signups' => 'admins#toggle_signups', as: :admin_toggle_signups
   get 'admins/close_unmatched_requests' => 'admins#close_unmatched_requests', as: :admin_close_unmatched_requests
@@ -58,17 +53,5 @@ Rails.application.routes.draw do
   patch 'questions/update_response' => 'questions#update_response', as: :question
   put 'questions/update_response' => 'questions#update_response'
 
-  get 'meetings/panel_info' => 'meetings#panel_info'
-  get 'evaluations/view_responses' => 'evaluations#view_responses'
-
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :tutees, only: [:show]
-  resources :evaluations, only: [:update, :destroy]
-  resources :tutees do
-    resources :requests, only: [:create, :new, :edit]
-    resources :evaluations, only: [:index, :show, :edit, :update]
-  end
-
-  resources :tutors, except: [:index, :new]
 
 end

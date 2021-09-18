@@ -1,0 +1,17 @@
+=render 'application/notice'
+%body.container.landing_background.justify-content-center
+  .row.h-100.justify-content-center.align-items-center.font-weight-light
+    .col
+      .row.text-white.mb-2
+        .col
+          .display-4.mb-1= 'Welcome, '+ @user.first_name+'.'
+      .row.pb-3
+        - if @user.tutor?
+          = render partial:'tutor_dashboard'
+        - elsif @user.tutee?
+          = render partial:'tutee_dashboard'
+      .row
+        .col
+          =button_to 'Log Out', destroy_user_session_path, method:'delete', class: "btn btn-primary"
+        .col.text-right.mr-2
+          =button_to 'Edit Account', edit_user_registration_path, method: 'get', class: "btn btn-primary"

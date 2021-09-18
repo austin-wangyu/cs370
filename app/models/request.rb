@@ -1,10 +1,24 @@
 class Request < ApplicationRecord
-  belongs_to :tutee
   has_one :meeting
-  has_one :tutor, through: :meeting
   has_one :evaluation, through: :meeting
 
   validates :meeting_length, presence: {message: "Meeting length cannot be left empty"}
+
+  def tutee
+    Tutee.find_by_id(self.tutee_id)
+  end
+
+  def open?
+    self.status == 'open'
+  end
+
+  def matched?
+    self.status == 'matched'
+  end
+
+  def closed_by_admin?
+    self.status == 'closed by admin'
+  end
 
   def self.to_csv
 	attributes = Request.attribute_names

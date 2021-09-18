@@ -1,12 +1,32 @@
 class Evaluation < ApplicationRecord
-  include Friendlyable
   has_one :meeting
-  has_one :request, through: :meeting
-  has_one :tutor, through: :meeting
-  has_one :tutee, through: :request
   has_many :question
 
-  validates :status, presence: true, inclusion: { in: %w(Pending Complete), message: "Must be valid status"}, on: :update, :if => :took_place
+  validates :status, presence: true, inclusion: { in: %w(pending complete), message: "Must be valid status"}, on: :update, :if => :took_place
+
+  def meeting
+    Meeting.find_by_id(self.meeting_id)
+  end
+
+  def tutor
+    self.meeting.tutor
+  end
+
+  def request
+    self.meeting.request
+  end
+
+  def tutee
+    self.meeting.tutee
+  end
+
+  def pending?
+    self.status == 'pending'
+  end
+
+  def complete?
+    self.status == "complete"
+  end
 
   def self.to_csv
     attributes = self.attribute_names
@@ -21,18 +41,18 @@ class Evaluation < ApplicationRecord
   end
 
   def self.total_hours
-    self.where(:took_place => true).where(:status => "Complete").sum(:hours)
+    self.where(:took_place => true).where(:status => "complete").sum(:hours)
   end
 
   def self.hours_ethnicity ethnicity
     #TODO
     #This where clause is saying where tutee.ethnicity contains an element called local variable ethnicity value.
     #Will need to change depending on how we categorize mutli-ethnic data.
-    return Tutee.where("ethnicity @> ARRAY['#{ethnicity}']::varchar[]").joins(:evaluations).where("evaluations.took_place" => true).where("evaluations.status" => "Complete").sum(:hours)
+    return Tutee.where("ethnicity @> ARRAY['#{ethnicity}']::varchar[]").joins(:evaluations).where("evaluations.took_place" => true).where("evaluations.status" => "complete").sum(:hours)
   end
 
   def self.hours_gender gender
-    return Tutee.where(gender: gender).joins(:evaluations).where("evaluations.took_place" => true).where("evaluations.status" => "Complete").sum(:hours)
+    return Tutee.where(gender: gender).joins(:evaluations).where("evaluations.took_place" => true).where("evaluations.status" => "complete").sum(:hours)
   end
 
   def self.hours_demographic_to_csv
@@ -58,7 +78,7 @@ class Evaluation < ApplicationRecord
   end
 
   def self.hours_course course
-    return Request.where(:course => course).joins(:meeting).joins(:evaluation).where("evaluations.took_place" => true).where("evaluations.status" => "Complete").sum(:hours)
+    return Request.where(:course => course).joins(:meeting).joins(:evaluation).where("evaluations.took_place" => true).where("evaluations.status" => "complete").sum(:hours)
   end
 
   def self.hours_course_to_csv

@@ -9,7 +9,6 @@ SimpleCov.start
 # files.
 
 require 'cucumber/rails'
-require 'webdriver'
 
 # Choose between :selenium (to see everything happen visually) and :selenium_headless (to not)
 Capybara.javascript_driver = :selenium_headless

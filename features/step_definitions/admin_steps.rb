@@ -1,7 +1,7 @@
-Given /the following admins exist/ do |admins_table|
-  admins_table.hashes.each do |admin|
-    Admin.create! admin
-  end
+Given /I log in as admin/ do
+  step %{I go to the admin login page}
+  step %{I fill in "password" with "#{Admin.general_seed_password}"}
+  step %{press "Log in"}
 end
 
 Given /signups are off/ do

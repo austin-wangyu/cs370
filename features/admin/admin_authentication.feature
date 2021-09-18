@@ -9,7 +9,7 @@ Feature: Verify Admin Authentication
     Then I should be on the admin home page
 
   Scenario: Admin without password cannot visit admin home page
-    When I want to log in as user type "Admin"
+    When I go to the admin login page
     And I fill in "password" with "wrongAdminPassword"
     And press "Log in"
     Then I should be on the home page
