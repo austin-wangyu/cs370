@@ -1,19 +1,30 @@
-%h2 Change your password
-= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  = f.hidden_field :reset_password_token
-  .field
-    = f.label :password, "New password"
-    %br/
-    - if @minimum_password_length
-      %em
-        (#{@minimum_password_length} characters minimum)
-      %br/
-    = f.password_field :password, autofocus: true, autocomplete: "new-password"
-  .field
-    = f.label :password_confirmation, "Confirm new password"
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "off"
-  .actions
-    = f.submit "Change my password"
-= render "devise/shared/links"
+%body.container.landing_background
+  .row.h-100.justify-content-center.align-items-center
+    .col-8
+      - if resource.errors.any?
+        .alert.alert-warning.text-center
+          = render "devise/shared/error_messages", resource: resource
+      .card.p-4
+        %h3.text-center.text-info.pb-2 Change your password
+        = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+          .form-group.mb-2
+            = f.hidden_field :reset_password_token
+            .field
+              = f.label :password, "New password", class: 'text-info'
+              - if @minimum_password_length
+                %em
+                  (#{@minimum_password_length} characters minimum)
+                %br/
+              = f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control"
+          .form-group.mb-0
+            .field
+              = f.label :password_confirmation, "Confirm new password", class: 'text-info'
+              %br/
+              = f.password_field :password_confirmation, autocomplete: "off", class: "form-control"
+          .form-row.align-items-center
+            .col
+              = f.submit "Change my password", class: 'btn btn-info btn-md'
+            .col
+              #register-link.text-right
+                %br
+                  = render "devise/shared/links"
