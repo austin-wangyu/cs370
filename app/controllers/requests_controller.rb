@@ -4,13 +4,6 @@ class RequestsController < ApplicationController
     params.require(:request).permit(:tutee_id, :course, :subject, :meeting_length)
   end
 
-  def history
-    @tutee = Tutee.find_by_id(params[:tutee_id])
-    @requests = Request.where(:tutee_id => params[:tutee_id])
-    @evaluations = @tutee.evaluations.where(:status => 'complete')
-  end
-
-
   def update
     if request_params[:subject].blank?
       flash[:notice] = "Invalid request: Subject should be filled out."

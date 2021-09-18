@@ -25,16 +25,4 @@ class EvaluationsController < ApplicationController
     end
     redirect_to dashboard_path
   end
-
-  #Evaluation tab on Tutee page
-  def index
-    @tutee = Tutee.find params[:tutee_id]
-    @evaluations = @tutee.evaluations.where(:status => 'pending')
-  end
-
-  #When you click on "complete" inside of Tutee History page
-  def show
-    @evaluation = Evaluation.find params[:id]
-    @tutee = Tutee.find params[:tutee_id]
-  end
 end

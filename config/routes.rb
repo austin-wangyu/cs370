@@ -1,19 +1,29 @@
 Rails.application.routes.draw do
 
+  ##USERS
   devise_for :users, controllers: {registrations: 'users/registrations'}, path: ''
   devise_scope :user do
     root to: 'devise/sessions#new', as: :homepage
   end
   get 'dashboard', to: 'users#show'
 
-  resources :requests, only: [:create, :update]
-  resources :evaluations, only: [:update]
-
+  ##TUTORS
   get '/match' => 'tutors#match', as: :tutor_match
   post '/confirm_meeting' => 'tutors#confirm_meeting', as: :tutor_confirm_meeting
   post '/finish_meeting' => 'tutors#finish_meeting', as: :tutor_finish_meeting
   delete '/delete_meeting' => 'tutors#delete_meeting', as: :tutor_delete_meeting
 
+  ##REQUESTS
+  resources :requests, only: [:create, :update]
+
+  ##EVALUATIONS
+  resources :evaluations, only: [:update]
+  get 'evaluations/view_responses' => 'evaluations#view_responses'
+
+  ##MEETINGS
+  get 'meetings/panel_info' => 'meetings#panel_info'
+
+  ##ADMIN
   get '/admin' => 'admins#new', as: :new_admin_session
   post '/admin' => 'admins#create', as: :admin_session
   delete '/admin/sign_out' => 'admins#destroy', as: :admin_logout
@@ -43,7 +53,5 @@ Rails.application.routes.draw do
   patch 'questions/update_response' => 'questions#update_response', as: :question
   put 'questions/update_response' => 'questions#update_response'
 
-  get 'meetings/panel_info' => 'meetings#panel_info'
-  get 'evaluations/view_responses' => 'evaluations#view_responses'
 
 end

@@ -78,29 +78,11 @@ class TutorsController < ApplicationController
     redirect_back(fallback_location:"/")
   end
 
-  # GET /tutors/1
-  # GET /tutors/1.json
-  def show
-    @tutor = Tutor.find_by_id(params[:id])
-    @meetings = Meeting.where("tutor_id = ? AND status = pending", params[:id])
-    @previous_meetings = Meeting.where("tutor_id = ? AND status = finished", params[:id])
-  end
-
-  # GET /tutors/new
-  def new
-    @tutor = Tutor.new
-  end
-
-  # GET /tutors/1/edit
-  def edit
-  end
-
   def total_hours
     @tutor= Tutor.find(params[:id])
     return Tutor.total_hours_helper(@tutor)
   end
   helper_method :total_hours
-
 
   def hours_this_week
     @tutor= Tutor.find(params[:id])
@@ -113,27 +95,4 @@ class TutorsController < ApplicationController
     return Tutor.average_hours_helper(@tutor)
   end
   helper_method :average_hours
-
-  def update
-    #This should move to Devise ASAP.
-    #NOTE: you can actually change emails, and it will send a confirmation email that, once confirmed, will update your email address.
-    #This could be cool, but also you only have one berkeley email, so you shouldn't be allowed to change your email associated with this acc.
-    processed_major = tutor_params
-    processed_major[:major] = process_major_input params['tutor']['major']
-    if @tutor.update(processed_major)
-      flash[:success] = "Changes saved"
-    else
-      flash[:notice] = "Changes not saved"
-    end
-    redirect_to tutor_path(@tutor)
-  end
-
-  def destroy
-
-  end
-
-  def requests
-
-  end
-
 end
