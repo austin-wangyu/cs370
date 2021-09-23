@@ -33,17 +33,28 @@ class AdminsController < ApplicationController
 
   def manage_tutors
     @tutors = Tutor.all
+    @tutor_list = Admin.tutor_list
   end
 
-  def delete_tutor
-    email = params[:delete_tutor][:email]
-    tutor_to_delete = Tutor.where(:email => email).first
-    if tutor_to_delete.nil?
-      flash[:notice] = "No tutor with email #{email} exists."
+  def add_tutor
+    tutor_list = params[:tutor_list].split("\r\n")
+    persisting = []
+    for email in tutor_list do
+      user = User.find_by_email(email)
+      if user&.update!(type: 'Tutor')
+      else
+        persisting.append(email)
+      end
+    end
+    @admin.update!(tutor_list: persisting)
+    redirect_to admin_manage_tutors_path
+  end
+
+  def remove_tutor
+    if User.find_by_id(params[:user])&.update!(type: "Tutee")
+      flash[:success] = "Tutor status removed for #{User.find_by_id(params[:user]).full_name}"
     else
-      flash[:success] = "Tutor #{email} successfully deleted."
-      meetings_to_delete = Meeting.where(:tutor => tutor_to_delete).delete_all
-      tutor_to_delete.destroy
+      flash[:notice] = "Something went wrong, tutor status was not modified"
     end
     redirect_to admin_manage_tutors_path
   end

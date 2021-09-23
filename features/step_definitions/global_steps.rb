@@ -116,6 +116,10 @@ When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
 end
 
+When /^(?:|I )press the first "([^"]*)"$/ do |button|
+  click_button(button, match: :first)
+end
+
 And /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
   if value == "general_seed_password"
     fill_in(field, :with => Admin.general_seed_password)

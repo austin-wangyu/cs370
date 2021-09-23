@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2021_09_03_210820) do
     t.string "course_list", default: ["CS10", "CS61A", "CS61B", "CS61C", "CS70", "CS88", "EE16A", "EE16B", "DATA8", "UPPERDIV"], array: true
     t.text "tutor_types", default: "CSM (8-10 hours)\r\nTA (12 hours)\r\nAcademic Intern (36 hours)\r\nTutor (12 hours)"
     t.string "priority_list", default: [], array: true
+    t.string "tutor_list", default: [], array: true
     t.boolean "signups_allowed", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

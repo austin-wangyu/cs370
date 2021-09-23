@@ -22,14 +22,12 @@
               = submit_tag 'Update Tutee Priorities', class:'btn btn-info mt-3'
 
         .col
-          List of users with request priority:
-          %br
-          %table.table.table-hover
+          %table#dataTable.table.table-bordered{:cellspacing => '0', :width => '100%'}
             %thead
               %tr
                 %th{scope: 'col'} Name
                 %th{scope: 'col'} Email
-                %th{scope: 'col'} 
+                %th{scope: 'col'}
 
             %tbody
               - for user in @priority_users do
