@@ -43,7 +43,6 @@ class UsersController < ApplicationController
         end
       end
     end
-    @has_priority = Admin.priority_list_contains? @user
     @course_array = Admin.course_list
     @previous_requests = Request.where(tutee_id: @user.id)
   end

@@ -8,7 +8,7 @@ QuestionTemplate.create!(:prompt=>"How was the pacing of the appointment?", :is_
 QuestionTemplate.create!(:prompt=>"Any other concerns?", :is_optional=>true, :question_type=>"text", :order=>8, :is_active=>true, :is_admin_only=>true, :details=>{:min_char => 0})
 
 admin_password = BCrypt::Password.create(Admin.general_seed_password)
-Admin.create(id:1, password_digest:admin_password, priority_list: ['tt3@berkeley.edu'])
+Admin.create(id:1, password_digest:admin_password)
 
 if not Rails.env.production?
   #use Admin.general_seed_password for reliability, single source of truth. All users have the same password for testing purposes.
@@ -22,7 +22,7 @@ if not Rails.env.production?
     password: Admin.general_seed_password, password_confirmation: Admin.general_seed_password, confirmed_at: "2021-05-07 05:07:48")
   Tutee.create(
     first_name: "Tutee", last_name: "Three", email: "tt3@berkeley.edu", gender: "Female", pronoun: "She/Hers",
-    ethnicity: ['Chinese', 'White'], major: 'Intended Cognitive Science', dsp: false, transfer: false, term: "2",
+    ethnicity: ['Chinese', 'White'], major: 'Intended Cognitive Science', dsp: false, transfer: false, term: "2", has_priority: true,
     password: Admin.general_seed_password, password_confirmation: Admin.general_seed_password, confirmed_at: "2021-05-07 05:07:48")
 
   Tutor.create( #user 4

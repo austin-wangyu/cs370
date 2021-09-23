@@ -15,12 +15,12 @@ class Admin < ApplicationRecord
       self.find_by_id(master_admin_index).tutor_types
     end
 
-    def priority_list_contains? tutee
-      self.find(master_admin_index).priority_list.include? tutee.email
-    end
-
     def signups_allowed?
       self.find_by_id(master_admin_index).signups_allowed
+    end
+
+    def priority_list
+      self.find_by_id(master_admin_index).priority_list.join("\n")
     end
 
     # These are used by all cucumber tests and db/seeds.rb

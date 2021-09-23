@@ -5,7 +5,7 @@
   What topics would you like to cover?
   = text_field :request, 'subject', class: 'form-control', :placeholder => 'e.g. Recursion', :required => "",
     :oninput => "this.setCustomValidity('')", :oninvalid => "this.setCustomValidity('Cannot be empty')", disabled: local_assigns[:view_only?]
-- if @has_priority
+- if @user.has_priority
   .form-row.pb-1.px-2
     = label :request, :meeting_length, 'Please select how long you would like to meet for:'
     = select :request, :meeting_length, options_for_select(@meeting_time, @request&.meeting_length), {:id =>'meeting_length'}, class: 'form-control', required: true, disabled: local_assigns[:view_only?]
