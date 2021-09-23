@@ -45,6 +45,9 @@ Rails.application.routes.draw do
 
   post 'admins/add_priority' => 'admins#add_tutee_priorities', as: :admin_update_tutee_priorities
   post 'admins/remove_priority' => 'admins#remove_tutee_priority', as: :remove_tutee_priority
+
+  post 'admins/add_tutor' => 'admins#add_tutor', as: :admin_add_tutor
+  post 'admins/remove_tutor' => 'admins#remove_tutor', as: :admin_remove_tutor
   #Admin customize QuestionTemplates routes
   get 'admins/update_question_templates' => 'admins#update_question_templates', as: :admin_update_question_templates
   post 'admins/batch_update' => 'question_templates#batch_update', as: :question_templates_batch_update

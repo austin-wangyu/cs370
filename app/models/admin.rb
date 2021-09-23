@@ -11,6 +11,14 @@ class Admin < ApplicationRecord
       self.find_by_id(master_admin_index).course_list
     end
 
+    def priority_list
+      self.find_by_id(master_admin_index).priority_list.join("\n")
+    end
+
+    def tutor_list
+      self.find_by_id(master_admin_index).tutor_list.join("\n")
+    end
+
     def tutor_types
       self.find_by_id(master_admin_index).tutor_types
     end
@@ -19,9 +27,6 @@ class Admin < ApplicationRecord
       self.find_by_id(master_admin_index).signups_allowed
     end
 
-    def priority_list
-      self.find_by_id(master_admin_index).priority_list.join("\n")
-    end
 
     # These are used by all cucumber tests and db/seeds.rb
     def general_seed_password

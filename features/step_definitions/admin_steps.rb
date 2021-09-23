@@ -30,6 +30,11 @@ When /I update the priority list to "(.*)"/ do |priority_list|
   fill_in 'priority_list', :with => priority_list.to_s.gsub(/, /, "\r\n")
 end
 
+When /I update the tutor list to "(.*)"/ do |tutor_list|
+  # separate course list into a newline separated list rather than comma separated
+  fill_in 'tutor_list', :with => tutor_list.to_s.gsub(/, /, "\r\n")
+end
+
 
 When /I update admin password with password "(.*)" and confirmation password "(.*)"/ do |pass, confirmation|
   page.find(:xpath, '//*[@id="update_password_password"]').set(pass)
