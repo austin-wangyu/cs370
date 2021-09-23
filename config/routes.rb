@@ -43,6 +43,8 @@ Rails.application.routes.draw do
   get 'admins/update_password' => 'admins#update_password', as: :admin_update_password
   post 'admins/update_password' => 'admins#post_update_password', as: :admin_post_update_password
 
+  post 'admins/add_priority' => 'admins#add_tutee_priorities', as: :admin_update_tutee_priorities
+  post 'admins/remove_priority' => 'admins#remove_tutee_priority', as: :remove_tutee_priority
   #Admin customize QuestionTemplates routes
   get 'admins/update_question_templates' => 'admins#update_question_templates', as: :admin_update_question_templates
   post 'admins/batch_update' => 'question_templates#batch_update', as: :question_templates_batch_update

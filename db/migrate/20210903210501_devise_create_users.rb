@@ -14,7 +14,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.boolean :dsp
       t.boolean :transfer
       t.string :term
-      t.json :details
+      t.boolean :has_priority, default: false
 
       t.json :meta_values
       t.timestamps null: false

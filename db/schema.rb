@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 2021_09_03_210820) do
     t.boolean "dsp"
     t.boolean "transfer"
     t.string "term"
-    t.json "details"
+    t.boolean "has_priority", default: false
     t.json "meta_values"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -8,6 +8,39 @@
   .card.mb-3
     .card-header
       %span.glyphicon.glyphicon-pencil
+      Set Tutee Priority
+    .card-body
+      .row
+        .col
+          .container-fluid
+            .ml-2.mb-2
+              Please enter one tutee email per line.
+              %br
+              Tutees whose accounts have not yet been created will persist in the box below.
+            = form_tag admin_update_tutee_priorities_path do
+              = text_area_tag 'priority_list', @priority_list, rows: 5, class: 'form-control'
+              = submit_tag 'Update Tutee Priorities', class:'btn btn-info mt-3'
+
+        .col
+          List of users with request priority:
+          %br
+          %table.table.table-hover
+            %thead
+              %tr
+                %th{scope: 'col'} Name
+                %th{scope: 'col'} Email
+                %th{scope: 'col'} 
+
+            %tbody
+              - for user in @priority_users do
+                %tr
+                  %td= user.full_name
+                  %td= user.email
+                  %td= button_to 'Remove Priority', action:"remove_tutee_priority", params: {user: user.id}
+
+  .card.mb-3
+    .card-header
+      %span.glyphicon.glyphicon-pencil
       Edit Tutor Types
     .card-body
       .container-fluid

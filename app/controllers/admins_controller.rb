@@ -21,6 +21,7 @@ class AdminsController < ApplicationController
     redirect_to homepage_path
   end
 
+
   def tutor_hours
     @tutors = Tutor.all
     @meeting = Meeting.all
@@ -54,6 +55,31 @@ class AdminsController < ApplicationController
     @signups_allowed = Admin.signups_allowed?
     @tutor_types = Admin.tutor_types
     @course_list = Admin.course_list
+    @priority_list = Admin.priority_list
+    @priority_users = User.where(has_priority:true)
+  end
+
+  def add_tutee_priorities
+    priority_list = params[:priority_list].split("\r\n")
+    persisting = []
+    for email in priority_list do
+      user = User.find_by_email(email)
+      if user&.update!(has_priority: true)
+      else
+        persisting.append(email)
+      end
+    end
+    @admin.update!(priority_list: persisting)
+    redirect_to admin_manage_semester_path
+  end
+
+  def remove_tutee_priority
+    if User&.find_by_id(params[:user])&.update!(has_priority:false)
+      flash[:success] = "Priority successfully removed for #{User.find_by_id(params[:user]).full_name}"
+    else
+      flash[:notice] = "Something went wrong, priority status was not modified"
+    end
+    redirect_to admin_manage_semester_path
   end
 
   def toggle_signups
