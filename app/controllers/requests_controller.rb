@@ -46,4 +46,10 @@ class RequestsController < ApplicationController
     end
     redirect_to dashboard_path
   end
+
+  def destroy
+    Request.find_by_id(params[:id]).destroy
+    flash[:success] = "Request deleted."
+    redirect_to dashboard_path
+  end
 end

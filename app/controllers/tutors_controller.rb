@@ -72,8 +72,11 @@ class TutorsController < ApplicationController
     request_id = params[:request_id]
     tutor_message = params[:tutor_message]
 
-    #Check if request has already been filled since page loaded
-    if Request.find(request_id).matched?
+    #Check if request has been deleted or already been matched by another tutor since page loaded
+    if !Request.exists?(id: request_id)
+      flash[:notice] = "Sorry, this request has been deleted."
+      return redirect_back(fallback_location:"/")
+    elsif Request.find(request_id).matched?
       flash[:notice] = "Sorry, this request has already been matched."
       return redirect_back(fallback_location:"/")
     end

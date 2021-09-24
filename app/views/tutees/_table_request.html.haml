@@ -15,7 +15,7 @@
     =form_tag request_path(@request.id), method:"put" do
       =render partial:'requests/request_form', locals: {view_only?: false}
       =submit_tag 'Update Request', class: 'btn btn-info form-control'
-
+    =button_to 'Delete Request', request_path(@request), method:"delete", class: 'btn btn-danger form-control'
   -elsif status == 'unscheduled' or status == 'scheduled' #view request and meeting details only
     =render partial:'requests/request_form', locals: {view_only?: true}
 
