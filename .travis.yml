@@ -1,0 +1,66 @@
+# replace with version(s) of Ruby that matches your Gemfile:
+language: ruby
+rvm:
+  - 2.5.3
+dist: trusty
+
+# make sure production-only gems are not installed
+bundler_args: --without production
+addons:
+  firefox: latest
+
+before_install:
+  - yes | gem update --system --force
+  - gem install bundler
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.29.1/geckodriver-v0.29.1-linux64.tar.gz
+  - mkdir geckodriver
+  - tar -xzf geckodriver-v0.29.1-linux64.tar.gz -C geckodriver
+  - export PATH=$PATH:$PWD/geckodriver
+
+  - npm install bootstrap-select
+  - npm install bootstrap-slider
+
+env:
+  global:
+    # in TravisCI settings, set CCKEY to your CodeClimate Test Reporter ID:
+
+    - CC_TEST_REPORTER_ID=$CCKEY
+
+    - CCTR=./cc-test-reporter
+    # set to whatever timezone your app assumes from this list:
+    # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+    - TZ=America/Los_Angeles
+
+# steps to run BEFORE the test run
+before_script:
+  # create config/application.yml (sensitive API keys etc) from config/application.yml.asc
+  # IMPORTANT: you must MANUALLY set correct value of encryption KEY in Travis settings for your project --
+  # DO NOT expose that value here!
+  # - gpg --passphrase $KEY -d -o config/application.yml config/application.yml.asc
+  # install CodeClimate test reporter and tell it we are starting a test run
+  - sudo service postgresql restart
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > $CCTR
+  - chmod +x $CCTR
+  - $CCTR before-build
+
+script:
+  # setup the test database, including any seed data
+  # - bundle exec rake db:setup
+  - bundle exec rake db:drop
+  - bundle exec rake db:create
+  - bundle exec rake db:migrate
+  # insert here any other steps needed (load other sample data, etc) before starting tests
+  # run RSpec tests, and capture coverage
+  - bundle exec cucumber
+  - $CCTR format-coverage -t simplecov -o coverage/codeclimate.cucumber.json coverage/.resultset.json
+  # run Cucumber scenarios, and capture coverage. --strict means undefined steps result in a failure.
+  - bundle exec rspec
+  - $CCTR format-coverage -t simplecov -o coverage/codeclimate.rspec.json coverage/.resultset.json
+
+after_script:
+  # combine coverage from all suites, and upload to CodeClimate
+  - $CCTR sum-coverage coverage/codeclimate.*.json -p 2
+  # - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then $CCTR upload-coverage; fi  # Upload coverage/codeclimate.json
+  - $CCTR upload-coverage
+  # just in case, be paranoid and remove sensitive config info file
+  - rm -f config/application.yml
