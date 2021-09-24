@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   delete '/delete_meeting' => 'tutors#delete_meeting', as: :tutor_delete_meeting
   post '/switch_views' => 'tutors#switch_views', as: :tutor_switch_views
   ##REQUESTS
-  resources :requests, only: [:create, :update]
+  resources :requests, only: [:create, :update, :destroy]
 
   ##EVALUATIONS
   resources :evaluations, only: [:update]
