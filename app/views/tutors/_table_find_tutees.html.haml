@@ -24,4 +24,4 @@
                 %th{scope: 'row'}= index+1
                 %td= tutee.full_name
                 %td= request.subject
-                %td= (request.meeting_length*60).to_i.to_s + " min"
+                %td= (request.meeting_length).to_f.to_s + " hrs"

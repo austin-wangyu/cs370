@@ -50,6 +50,13 @@ class UsersController < ApplicationController
   def show_tutor_dashboard
     @meetings = Meeting.where("tutor_id = ? AND status != 'finished'", @user.id)
     @previous_meetings = Meeting.where("tutor_id = ? AND status = 'finished'", @user.id)
+    @my_hours_total = @user.evaluations.where("took_place = true").pluck(:hours).sum
+    @my_hours_week = @user.evaluations.where("evaluations.created_at > ? and took_place = true", Time.now-7.days).pluck(:hours).sum
+    @class_hours_total = Evaluation.where("took_place = true").pluck(:hours).sum
+    @class_hours_week = Evaluation.where("evaluations.created_at > ? and took_place = true", Time.now-7.days).pluck(:hours).sum
+
+    average_ratings = @user.questions.where(question_template_id: QuestionTemplate.where(question_type: 'scale', is_active:true).ids, is_admin_only: false).group('question_template_id').average("CAST(response AS INTEGER)")
+    @questions = average_ratings.map{ |k,v| [QuestionTemplate.find(k),v]}
   end
 
   def create_question_partial question

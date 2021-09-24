@@ -1,0 +1,9 @@
+@javascript
+Feature: Tutor can view their statistics over all their tutoring sessions
+
+  As a current tutor
+  I want to view my statistics
+  So that I can quantify the quality of my tutoring
+
+#This is going to need to instantiate questions for each evaluation that's been
+#completed in seeds.rb for this feature to be decoupled from other features.

@@ -66,6 +66,13 @@ class TutorsController < ApplicationController
     tutee_id = Tutee.find_by_email(tutee_email).id
     request_id = params[:request_id]
     tutor_message = params[:tutor_message]
+
+    #Check if request has already been filled since page loaded
+    if Request.find(request_id).matched?
+      flash[:notice] = "Sorry, this request has already been matched."
+      return redirect_back(fallback_location:"/")
+    end
+
     begin
       TutorMailer.invite_student(tutor_id, tutee_id, request_id, tutor_message).deliver_now
     rescue StandardError

@@ -9,7 +9,7 @@
         %th{scope: 'col'} #
         %th{scope: 'col'} Course
         %th{scope: 'col'} Subject
-        %th{scope: 'col'} Duration
+        %th{scope: 'col'} Request
         %th{scope: 'col'} Time
         %th{scope: 'col'} Location
     %tbody
@@ -18,6 +18,6 @@
           %th.align-middle{scope: 'row'}= index+1
           %td.align-middle= meeting.request.course
           %td.align-middle= meeting.request.subject
-          %td.align-middle= (meeting.request.meeting_length*60).to_i.to_s + " min"
+          %td.align-middle= (meeting.request.meeting_length).to_f.to_s + " hrs"
           %td.align-middle= meeting.set_time ? meeting.set_time.strftime("%b %d, %Y at %I:%M%P") : "Pending Confirmation"
           %td.align-middle= meeting.set_location ? meeting.set_location : "Pending Confirmation"

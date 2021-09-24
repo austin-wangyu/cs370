@@ -3,8 +3,8 @@
   = select :request, :course, options_for_select(@course_array, @request&.course), {:id =>'course_list'}, class: 'form-control', required: true, disabled: local_assigns[:view_only?]
 .form-row.pb-1.px-2
   What topics would you like to cover?
-  = text_field :request, 'subject', class: 'form-control', :placeholder => 'e.g. Recursion', :required => "",
-    :oninput => "this.setCustomValidity('')", :oninvalid => "this.setCustomValidity('Cannot be empty')", disabled: local_assigns[:view_only?]
+  = text_field :request, 'subject', class: 'form-control', :placeholder => 'e.g. Recursion and Environment Diagrams', :required => "", maxlength: 50,
+    :oninput => "this.setCustomValidity('')", :oninvalid => "this.setCustomValidity('Cannot be empty and must be shorter than 50 characters')", disabled: local_assigns[:view_only?]
 - if @user.has_priority
   .form-row.pb-1.px-2
     = label :request, :meeting_length, 'Please select how long you would like to meet for:'
