@@ -79,6 +79,7 @@ Feature: Fill out Evaluation
     And I fill in "response_3" with "They should probably not be gone for half the meeting getting food though"
     #Leaving "Any other concerns blank, because it should be optional"
     And I press "Submit Evaluation"
-    Then I should see "No request pending"
+    Then I should see "Evaluation submitted!"
+    And I should see "No request pending"
     And I should see "Please pick a course:"
     And I should see "What topics would you like to cover?"
