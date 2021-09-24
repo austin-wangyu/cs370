@@ -21,16 +21,6 @@ class AdminsController < ApplicationController
     redirect_to homepage_path
   end
 
-
-  def tutor_hours
-    @tutors = Tutor.all
-    @meeting = Meeting.all
-    @evaluations = Evaluation.all
-    @courses = @admin.course_list
-    #TODOAUSTIN temporary fix, wait for chris to respond on how he wants mutli-ethnic reporting to be weighted, then implement.
-    @demographics = Tutee.distinct.pluck(:ethnicity) + ['Male','Female','Non-Binary']
-  end
-
   def manage_tutors
     @tutors = Tutor.all
     @tutor_list = Admin.tutor_list
@@ -122,26 +112,7 @@ class AdminsController < ApplicationController
     redirect_to admin_manage_semester_path
   end
 
-  def rating_tutors
-    @likert_scale_averages = {}
-    QuestionTemplate.where(question_type: 'scale', is_active: true).each do |qt|
-      aggregate = 0
-      qt.question.each do |q|
-        aggregate += q.response.to_i
-      end
-      key = qt.details['descriptor']
-      average = qt.question.length > 0 ? aggregate/qt.question.length : 0
-      maximum = qt.details['max_val']
-      @likert_scale_averages[key] = [average, maximum]
-    end
-  end
-
-  def updateSemesterHelper val
-    return params[val][:semester], params[val][:year]
-  end
-
   def update_password
-
   end
 
   def post_update_password

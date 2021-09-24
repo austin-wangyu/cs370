@@ -17,7 +17,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
     #I just manually concat, and clone the user_params hash bc you can't edit it directly.
     processed_major = user_params
     processed_major[:major] = process_major_input params['user']['major']
-    flash[:notice] = determine_valid_account User.new(processed_major)
+
+    email = processed_major[:email]
+    if Admin.priority_list.include? email
+      processed_major[:has_priority] = true
+      Admin.remove_from_priority_list email
+    end
+
+    if Admin.tutor_list.include? email
+      processed_major[:type] = "Tutor"
+      Admin.remove_from_tutor_list email
+    end
+
+    if User.create(processed_major).valid?
+      flash[:success] = "Account was successfully created. Please check your email to authenticate your account"
+    else
+      flash[:notice] = "Account was not successfully created"
+    end
     redirect_to new_user_session_path
   end
 

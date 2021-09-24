@@ -5,26 +5,31 @@
     .col-9.text-right
       Total Hours Tutored:
     .col-3.pl-0
-      69
+      = @my_hours_total
   .row
     .col-9.text-right
-      Hours This Week:
+      Hours In Last 7 Days:
     .col-3.pl-0
-      3
-  .row
-    .col-9.text-right
-      Total Hours Remaining:
-    .col-3.pl-0
-      10
+      = @my_hours_week
+  - for question in @questions
+    .row
+      .col-8.text-right
+        = question[0].descriptor
+        \:
+      .col-4.pl-0
+        = question[1].nil? ? 'TBD' : question[1]
+        \/
+        = question[0].max_scale_value
+
   .lead.card-title.text-center.mb-0.mt-4 CS370 Statistics
   %hr.my-1
   .row
     .col-9.text-right
       Total Hours Tutored:
     .col-3.pl-0
-      69
+      = @class_hours_total
   .row
     .col-9.text-right
-      Hours This Week:
+      Hours In Last 7 Days:
     .col-3.pl-0
-      3
+      = @class_hours_week

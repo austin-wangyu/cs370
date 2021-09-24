@@ -3,6 +3,7 @@ class Request < ApplicationRecord
   has_one :evaluation, through: :meeting
 
   validates :meeting_length, presence: {message: "Meeting length cannot be left empty"}
+  validates_length_of :subject, in: 0..50, allow_blank: false
 
   def tutee
     Tutee.find_by_id(self.tutee_id)

@@ -8,4 +8,20 @@ class QuestionTemplate < ApplicationRecord
     end
     return result
   end
+
+  def descriptor
+    if self.question_type == "scale"
+      self.details['descriptor']
+    else
+      raise "This question does not have a descriptor component"
+    end
+  end
+
+  def max_scale_value
+    if self.question_type == "scale"
+      self.details['max_val']
+    else
+      raise "This question does not have a scale component"
+    end
+  end
 end

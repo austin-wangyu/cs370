@@ -15,8 +15,20 @@ class Admin < ApplicationRecord
       self.find_by_id(master_admin_index).priority_list.join("\n")
     end
 
+    def remove_from_priority_list email
+      admin = self.find_by_id(master_admin_index)
+      admin.priority_list.delete(email)
+      admin.save!()
+    end
+
     def tutor_list
       self.find_by_id(master_admin_index).tutor_list.join("\n")
+    end
+
+    def remove_from_tutor_list email
+      admin = self.find_by_id(master_admin_index)
+      admin.tutor_list.delete(email)
+      admin.save!()
     end
 
     def tutor_types
