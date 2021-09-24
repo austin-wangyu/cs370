@@ -21,18 +21,6 @@ class Request < ApplicationRecord
     self.status == 'closed by admin'
   end
 
-  def self.to_csv
-	attributes = Request.attribute_names
-
-    CSV.generate(headers: true) do |csv|
-      csv << attributes
-
-      all.each do |request|
-        csv << request.attributes.values
-      end
-    end
-  end
-
   def self.get_open_requests_by_course course
     Request.where(course: course, status: "open")
   end

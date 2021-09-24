@@ -5,10 +5,8 @@ class UsersController < ApplicationController
     @user = User.find_by_id(session[:current_user_id])
     #tutors get their own dashboard, but also an option to switch between tutee/tutor views
     if @user.tutee? or session[:tutor_viewing_tutee]
-      puts "SHOWING TUTEE VIEW"
       show_tutee_dashboard
     else
-      puts "SHOWING TUTOR VIEW"
       show_tutor_dashboard
     end
   end
