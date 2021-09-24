@@ -4,9 +4,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_id(session[:current_user_id])
     #tutors get their own dashboard, but also an option to switch between tutee/tutor views
-    if @user.tutee?
+    if @user.tutee? or session[:tutor_viewing_tutee]
+      puts "SHOWING TUTEE VIEW"
       show_tutee_dashboard
     else
+      puts "SHOWING TUTOR VIEW"
       show_tutor_dashboard
     end
   end
@@ -44,7 +46,7 @@ class UsersController < ApplicationController
       end
     end
     @course_array = Admin.course_list
-    @previous_requests = Request.where(tutee_id: @user.id)
+    @previous_requests = Request.where(user_id: @user.id)
   end
 
   def show_tutor_dashboard

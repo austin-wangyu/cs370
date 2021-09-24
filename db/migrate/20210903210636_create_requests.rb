@@ -9,6 +9,5 @@ class CreateRequests < ActiveRecord::Migration[5.2]
       t.json :meta_values
       t.timestamps
     end
-    rename_column :requests, :user_id, :tutee_id
   end
 end

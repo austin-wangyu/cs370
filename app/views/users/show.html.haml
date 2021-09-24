@@ -5,11 +5,16 @@
       .row.text-white.mb-2
         .col
           .display-4.mb-1= 'Welcome, '+ @user.first_name+'.'
-      .row.pb-3
         - if @user.tutor?
-          = render partial:'tutor_dashboard'
-        - elsif @user.tutee?
+          .col.text-right.mt-4.mr-2
+            - switch_button = session[:tutor_viewing_tutee] ? "Switch to Tutor View" : "Switch to Tutee View"
+            =button_to switch_button, tutor_switch_views_path, class: "btn btn-primary"
+
+      .row.pb-3
+        - if @user.tutee? or session[:tutor_viewing_tutee]
           = render partial:'tutee_dashboard'
+        - elsif @user.tutor?
+          = render partial:'tutor_dashboard'
       .row
         .col
           =button_to 'Log Out', destroy_user_session_path, method:'delete', class: "btn btn-primary"

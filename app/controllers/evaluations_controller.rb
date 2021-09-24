@@ -13,15 +13,19 @@ class EvaluationsController < ApplicationController
   def update
     @evaluation = Evaluation.find params[:id]
     took_place = (params['hours'].to_d > 0)
-    @evaluation.update(took_place: took_place, course: params['course'], hours: params['hours'], status: "complete")
-    #in case the tutor hasn't marked it as done yet, tutee submitting an evaluation will.
-    @evaluation.meeting.update(status: 'finished')
-    params.keys.each do |k|
-      if k.include?('response_')
-        qid = k.split('_')[1]
-        res = took_place ? params[k] : "N/A"
-        Question.find(qid).update!(response: res)
+    if @evaluation.update(took_place: took_place, course: params['course'], hours: params['hours'], status: "complete")
+      flash[:success] = "Evaluation submitted!"
+      #in case the tutor hasn't marked it as done yet, tutee submitting an evaluation will.
+      @evaluation.meeting.update(status: 'finished')
+      params.keys.each do |k|
+        if k.include?('response_')
+          qid = k.split('_')[1]
+          res = took_place ? params[k] : "N/A"
+          Question.find(qid).update!(response: res)
+        end
       end
+    else
+      flash[:notice] = "Something went wrong and your evaluation was not saved"
     end
     redirect_to dashboard_path
   end

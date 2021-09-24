@@ -19,9 +19,16 @@
               %th{scope: 'col'} Duration Requested
           %tbody
             - Request.get_open_requests_by_course(course).each_with_index do |request, index|
-            - tutee = request.tutee
-              %tr{style: "cursor: pointer;", onclick:"showTutorPanel('tutee',['#{tutee.email}','#{request.id}']);", id: "row_#{index}"}
-                %th{scope: 'row'}= index+1
-                %td= tutee.full_name
-                %td= request.subject
-                %td= (request.meeting_length).to_f.to_s + " hrs"
+              - tutee = request.tutee
+              - if tutee == @user
+                %tr
+                  %th{scope: 'row'}= index+1
+                  %td= tutee.full_name
+                  %td You cannot tutor yourself
+                  %td You cannot tutor yourself
+              - else
+                %tr{style: "cursor: pointer;", onclick:"showTutorPanel('tutee',['#{tutee&.email}','#{request&.id}']);", id: "row_#{index}"}
+                  %th{scope: 'row'}= index+1
+                  %td= tutee.full_name
+                  %td= request.subject
+                  %td= (request.meeting_length).to_f.to_s + " hrs"

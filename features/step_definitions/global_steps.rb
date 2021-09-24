@@ -68,6 +68,11 @@ end
 Then(/^I should see "(.*?)"$/) do |arg1|
   page.should have_content("#{arg1}")
 end
+
+Then(/^I should see button "(.*?)"$/) do |arg1|
+  page.should have_button("#{arg1}")
+end
+
 Then /^(?:|I )should not see "([^"]*)"$/ do |text|
   if page.respond_to? :should
     page.should have_no_content(text)
