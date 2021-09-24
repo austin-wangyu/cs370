@@ -11,7 +11,7 @@
       Hours In Last 7 Days:
     .col-3.pl-0
       = @my_hours_week
-  - for question in @questions
+  - @questions&.each do |question|
     .row
       .col-8.text-right
         = question[0].descriptor

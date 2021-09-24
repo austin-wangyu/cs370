@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   post '/confirm_meeting' => 'tutors#confirm_meeting', as: :tutor_confirm_meeting
   post '/finish_meeting' => 'tutors#finish_meeting', as: :tutor_finish_meeting
   delete '/delete_meeting' => 'tutors#delete_meeting', as: :tutor_delete_meeting
-
+  post '/switch_views' => 'tutors#switch_views', as: :tutor_switch_views
   ##REQUESTS
   resources :requests, only: [:create, :update]
 

@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2021_09_03_210820) do
   end
 
   create_table "requests", force: :cascade do |t|
-    t.bigint "tutee_id"
+    t.bigint "user_id"
     t.string "course"
     t.decimal "meeting_length"
     t.string "subject"
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 2021_09_03_210820) do
     t.json "meta_values"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["tutee_id"], name: "index_requests_on_tutee_id"
+    t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -120,5 +120,5 @@ ActiveRecord::Schema.define(version: 2021_09_03_210820) do
   add_foreign_key "meetings", "users", column: "tutor_id"
   add_foreign_key "questions", "evaluations"
   add_foreign_key "questions", "question_templates"
-  add_foreign_key "requests", "users", column: "tutee_id"
+  add_foreign_key "requests", "users"
 end

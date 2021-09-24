@@ -6,6 +6,11 @@ class TutorsController < ApplicationController
     @tutors = Tutor.all
   end
 
+  def switch_views
+    session[:tutor_viewing_tutee] = session[:tutor_viewing_tutee] ? false : true
+    redirect_to dashboard_path
+  end
+
   def finish_meeting
     @meeting = Meeting.find_by_id(params['finish-meeting-hidden-field'])
     tid = session[:current_user_id]
@@ -63,7 +68,7 @@ class TutorsController < ApplicationController
   def match
     tutor_id = session[:current_user_id]
     tutee_email = params[:tutee_email]
-    tutee_id = Tutee.find_by_email(tutee_email).id
+    tutee_id = User.find_by_email(tutee_email).id
     request_id = params[:request_id]
     tutor_message = params[:tutor_message]
 

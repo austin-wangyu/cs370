@@ -6,7 +6,7 @@ class Request < ApplicationRecord
   validates_length_of :subject, in: 0..50, allow_blank: false
 
   def tutee
-    Tutee.find_by_id(self.tutee_id)
+    User.find_by_id(self.user_id)
   end
 
   def open?

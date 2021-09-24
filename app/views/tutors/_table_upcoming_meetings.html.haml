@@ -1,4 +1,4 @@
-- if @meetings.length == 0
+- if @meetings.nil? or @meetings&.length == 0
   .row.w-100.h-100.align-items-center.text-center
     .col
       You have no upcoming meetings, find tutees to tutor in the adjacent tab.

@@ -32,10 +32,10 @@ class RequestsController < ApplicationController
       redirect_to dashboard_path
       return
     else
-      @tutee = Tutee.find_by_id(session[:current_user_id])
+      @user = User.find_by_id(session[:current_user_id])
       @request = Request.new(request_params)
-      @request.tutee_id = @tutee.id
-      if @tutee.has_priority
+      @request.user_id = @user.id
+      if @user.has_priority
         @request.meeting_length = request_params[:meeting_length].to_d
       else
         @request.meeting_length = 1
