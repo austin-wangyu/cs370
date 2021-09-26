@@ -11,7 +11,8 @@
         %th{scope: 'col'} Subject
         %th{scope: 'col'} Request Date
         %th{scope: 'col'} Tutor
-        %th{scope: 'col'} Duration
+        %th{scope: 'col'} Requested
+        %th{scope: 'col'} Reported
         %th{scope: 'col'} Meeting Date
         %th{scope: 'col'} Location
         %th{scope: 'col'} Status
@@ -23,6 +24,7 @@
           %td.align-middle= request&.subject
           %td.align-middle= request&.created_at.strftime("%b %d, %Y")
           %td.align-middle= request&.meeting&.tutor ? request.meeting.tutor.full_name : "N/A"
+          %td.align-middle= request&.meeting_length ? (request.meeting_length).to_i.to_s + " hours" : "N/A"
           %td.align-middle= request&.evaluation&.hours ? (request&.evaluation&.hours).to_i.to_s + " hours" : "N/A"
           %td.align-middle= request&.meeting&.set_time ? request.meeting.set_time.strftime("%b %d, %Y at %I:%M%P") : "N/A"
           %td.align-middle= request&.meeting&.set_location ? request.meeting.set_location : "N/A"

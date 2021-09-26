@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   ##USERS
-  devise_for :users, controllers: {registrations: 'users/registrations'}, path: ''
+  devise_for :users, controllers: {registrations: 'users/registrations', sessions: 'users/sessions'}, path: ''
   devise_scope :user do
     root to: 'devise/sessions#new', as: :homepage
   end

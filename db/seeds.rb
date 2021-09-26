@@ -1,9 +1,9 @@
 QuestionTemplate.create!(:prompt=>"What did you like about how your tutor covered the material?",
-  :is_optional=>false, :question_type=>"text", :order=>1, :is_active=>true, :is_admin_only=>false, :details=>{:min_char => 50})
+  :is_optional=>false, :question_type=>"text", :order=>1, :is_active=>true, :is_admin_only=>false, :details=>{:min_char => 20})
 QuestionTemplate.create!(:prompt=>"What is the best thing that your tutor did?",
-  :is_optional=>false, :question_type=>"text", :order=>2, :is_active=>true, :is_admin_only=>false, :details=>{:min_char => 50})
+  :is_optional=>false, :question_type=>"text", :order=>2, :is_active=>true, :is_admin_only=>false, :details=>{:min_char => 20})
 QuestionTemplate.create!(:prompt=>"What is something your tutor could work to improve?",
-  :is_optional=>false, :question_type=>"text", :order=>3, :is_active=>true, :is_admin_only=>false, :details=>{:min_char => 50})
+  :is_optional=>false, :question_type=>"text", :order=>3, :is_active=>true, :is_admin_only=>false, :details=>{:min_char => 20})
 QuestionTemplate.create!(:prompt=>"How knowledgeable was your tutor?",
   :is_optional=>false, :question_type=>"scale", :order=>4, :is_active=>true, :is_admin_only=>false, :details=>{:min_val => 1, :min_lab => 'Not Knowledgeable', :max_val => 10, :max_lab => "Very Knowledgeable", :descriptor => "Knowledgeable"})
 QuestionTemplate.create!(:prompt=>"How supportive was your tutor?",
