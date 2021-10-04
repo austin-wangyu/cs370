@@ -5,8 +5,11 @@
     "jquery-sortablejs": "^1.0.1"
   },
   "dependencies": {
+    "@popperjs/core": "^2.10.2",
+    "bootstrap": "^5.1.1",
     "bootstrap-select": "^1.13.18",
     "bootstrap-slider": "^11.0.2",
+    "jquery": "^3.6.0",
     "sortablejs": "^1.13.0"
   }
 }
