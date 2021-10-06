@@ -18,57 +18,41 @@ QuestionTemplate.create!(:prompt=>"Any other concerns?",
 admin_password = BCrypt::Password.create(Admin.general_seed_password)
 Admin.create(id:1, password_digest:admin_password)
 
-if not Rails.env.production?
-  #use Admin.general_seed_password for reliability, single source of truth. All users have the same password for testing purposes.
-  Tutee.create( #user 1
-    first_name: "Tutee", last_name: "One", email: "tt1@berkeley.edu", gender: "Male", pronoun: "He/His",
-    ethnicity: ['Vietnamese'], major: 'Intended Computer Science', dsp: false, transfer: false, term: "8",
-    password: Admin.general_seed_password, password_confirmation: Admin.general_seed_password, confirmed_at: "2021-05-07 05:07:48")
-  Tutee.create(
-    first_name: "Tutee", last_name: "Two", email: "tt2@berkeley.edu", gender: "Non-Binary", pronoun: "Other",
-    ethnicity: ['White', 'Black or African American'], major: 'Declared Data Science', dsp: false, transfer: true, term: "4",
-    password: Admin.general_seed_password, password_confirmation: Admin.general_seed_password, confirmed_at: "2021-05-07 05:07:48")
-  Tutee.create(
-    first_name: "Tutee", last_name: "Three", email: "tt3@berkeley.edu", gender: "Female", pronoun: "She/Hers",
-    ethnicity: ['Chinese', 'White'], major: 'Intended Cognitive Science', dsp: false, transfer: false, term: "2", has_priority: true,
-    password: Admin.general_seed_password, password_confirmation: Admin.general_seed_password, confirmed_at: "2021-05-07 05:07:48")
+#use Admin.general_seed_password for reliability, single source of truth. All users have the same password for testing purposes.
+Tutee.create( #user 1
+  first_name: "Tutee", last_name: "Demo", email: "tutee@berkeley.edu", gender: "Male", pronoun: "He/His",
+  ethnicity: ['Vietnamese'], major: 'Intended Computer Science', dsp: false, transfer: false, term: "8",
+  password: Admin.general_seed_password, password_confirmation: Admin.general_seed_password, confirmed_at: "2021-05-07 05:07:48")
+Tutee.create(
+  first_name: "Alice", last_name: "Demo", email: "alice@berkeley.edu", gender: "Non-Binary", pronoun: "Other",
+  ethnicity: ['White', 'Black or African American'], major: 'Declared Data Science', dsp: false, transfer: true, term: "4",
+  password: Admin.general_seed_password, password_confirmation: Admin.general_seed_password, confirmed_at: "2021-05-07 05:07:48")
+Tutee.create(
+  first_name: "Bob", last_name: "Demo", email: "bob@berkeley.edu", gender: "Female", pronoun: "She/Hers",
+  ethnicity: ['Chinese', 'White'], major: 'Intended Cognitive Science', dsp: false, transfer: false, term: "2", has_priority: true,
+  password: Admin.general_seed_password, password_confirmation: Admin.general_seed_password, confirmed_at: "2021-05-07 05:07:48")
 
-  Tutor.create( #user 4
-    first_name: "Tutor", last_name: "One", email: "tr1@berkeley.edu", gender: "Male", pronoun: "He/His",
-    ethnicity: ['Chinese'], major: 'Declared Computer Science', dsp: false, transfer: true, term: "4",
-    password: Admin.general_seed_password, password_confirmation: Admin.general_seed_password, confirmed_at: "2021-05-07 05:07:48")
-  Tutor.create(
-    first_name: "Tutor", last_name: "Two", email: "tr2@berkeley.edu", gender: "Female", pronoun: "She/Her",
-    ethnicity: ['White'], major: "Intended Data Science", dsp: true, transfer: false, term: "3",
-    password: Admin.general_seed_password, password_confirmation: Admin.general_seed_password, confirmed_at: "2021-05-07 05:07:48")
-  Tutor.create(
-    first_name: "Tutor", last_name: "Three", email: "tr3@berkeley.edu", gender: "Non-Binary", pronoun: "They/Their",
-    ethnicity: ['Black or African American'], major: "Intended Other", dsp: true, transfer: true, term: "6",
-    password: Admin.general_seed_password, :password_confirmation => Admin.general_seed_password, :confirmed_at => "2021-05-07 05:07:48")
+Tutor.create( #user 4
+  first_name: "Tutor", last_name: "Demo", email: "tutor@berkeley.edu", gender: "Male", pronoun: "He/His",
+  ethnicity: ['Chinese'], major: 'Declared Computer Science', dsp: false, transfer: true, term: "4",
+  password: Admin.general_seed_password, password_confirmation: Admin.general_seed_password, confirmed_at: "2021-05-07 05:07:48")
 
+#3 past meetings that have occurred between Tutor and all three Tutees
+Request.create(:user_id=>"1",:course=>"CS61A",:meeting_length=>2,:subject=>"environment diagrams", :status=>"matched", :created_at=>"2021-04-01 12:58:45 -0700", :updated_at=>"2021-04-01 12:58:45 -0700")
+Meeting.create(:tutor_id=>"4", :request_id=>"1", set_time: "Fri, 01 Oct 2021 14:07:00 PDT -07:00", set_location: "Moffitt 3rd Floor", status: "finished")
+Evaluation.create(meeting_id: "1", :took_place=>true, :status=>"complete", :hours=>1)
 
-  #3 past meetings that have occurred between tr2 and all three tts
-  Request.create(:user_id=>"1",:course=>"CS61A",:meeting_length=>2,:subject=>"seeded request tutee 1 - 1", :status=>"matched", :created_at=>"2021-04-01 12:58:45 -0700", :updated_at=>"2021-04-01 12:58:45 -0700")
-  Meeting.create(:tutor_id=>"5", :request_id=>"1", status: "finished")
-  Evaluation.create(meeting_id: "1", :took_place=>true, :status=>"complete", :hours=>2)
+Request.create(:user_id=>"2",:course=>"CS88",:meeting_length=>2,:subject=>"data analysis and ETL", :status=>"matched", :created_at=>"2021-04-01 12:58:45 -0700", :updated_at=>"2021-04-01 12:58:45 -0700")
+Meeting.create(:tutor_id=>"4", :request_id=>"2", set_time: "Sun, 03 Oct 2021 16:24:00 PDT -07:00", set_location: "Main Stacks", status: "finished")
+Evaluation.create(meeting_id: "2", :took_place=>true, :status=>"complete", :hours=>5)
 
-  Request.create(:user_id=>"2",:course=>"CS88",:meeting_length=>2,:subject=>"seeded request tutee 2 - 1", :status=>"matched", :created_at=>"2021-04-01 12:58:45 -0700", :updated_at=>"2021-04-01 12:58:45 -0700")
-  Meeting.create(:tutor_id=>"5", :request_id=>"2", status: "finished")
-  Evaluation.create(meeting_id: "2", :took_place=>true, :status=>"complete", :hours=>5)
+Request.create(:user_id=>"3",:course=>"CS70",:meeting_length=>2,:subject=>"dynamic programming and exam prep", :status=>"matched", :created_at=>"2021-04-01 12:58:45 -0700", :updated_at=>"2021-04-01 12:58:45 -0700")
+Meeting.create(:tutor_id=>"4", :request_id=>"3", set_time: "Tue, 05 Oct 2021 20:30:00 PDT -07:00", set_location: "The nearest hole in the ground", status: "finished")
+Evaluation.create(meeting_id: "3", :took_place=>true, :status=>"complete", :hours=>3)
 
-  Request.create(:user_id=>"3",:course=>"CS70",:meeting_length=>2,:subject=>"seeded request tutee 3 - 1", :status=>"matched", :created_at=>"2021-04-01 12:58:45 -0700", :updated_at=>"2021-04-01 12:58:45 -0700")
-  Meeting.create(:tutor_id=>"5", :request_id=>"3", status: "finished")
-  Evaluation.create(meeting_id: "3", :took_place=>true, :status=>"complete", :hours=>2)
+#Bob requests 61A tutoring
+Request.create(:user_id=>"3",:course=>"CS10",:meeting_length=>1,:subject=>"scratch help, for loops", :status=>"open", :created_at=>"2021-04-01 12:58:46 -0700", :updated_at=>"2021-04-01 12:58:45 -0700")
 
-  #One past meeting occurred between tr1 and tt1
-  Request.create(:user_id=>"1",:course=>"CS10",:meeting_length=>2,:subject=>"seeded request tutee 1 - 2", :status=>"matched", :created_at=>"2021-04-01 12:58:45 -0700", :updated_at=>"2021-04-01 12:58:45 -0700")
-  Meeting.create(:tutor_id=>"4", :request_id=>"4", status: "finished")
-  Evaluation.create(meeting_id: "4", :took_place=>true, :status=>"complete", :hours=>2)
-
-  #tt1 requests 61A tutoring
-  Request.create(:user_id=>"1",:course=>"CS61B",:meeting_length=>1,:subject=>"seeded request tutee 1 - 3", :status=>"open", :created_at=>"2021-04-01 12:58:46 -0700", :updated_at=>"2021-04-01 12:58:45 -0700")
-
-  #Meeting proposed for tt2 by tr2
-  Request.create(:user_id=>"2",:course=>"CS61A",:meeting_length=>1,:subject=>"seeded request tutee 2 - 2", :status=>"matched", :created_at=>"2021-04-01 12:58:46 -0700", :updated_at=>"2021-04-01 12:58:45 -0700")
-  Meeting.create(:tutor_id=>"5", :request_id=>"6")
-end
+#Meeting proposed for Alice by Tutor
+Request.create(:user_id=>"2",:course=>"CS61A",:meeting_length=>1,:subject=>"env diags and inheritance", :status=>"matched", :created_at=>"2021-04-01 12:58:46 -0700", :updated_at=>"2021-04-01 12:58:45 -0700")
+Meeting.create(:tutor_id=>"4", :request_id=>"5")

@@ -76,4 +76,4 @@
                 =f.label :transfer, 'Transfer Student?',  class:"text-white pl-1"
                 =f.select :transfer, [['Yes',true],['No',false]], {include_hidden: false}, class:"selectpicker form-control custom-hide-empty-option",  required:true, title: 'Maybe?'
         = link_to 'Back', dashboard_path, class: 'btn btn-primary'
-        = submit_tag 'Save Changes', class: 'btn btn-primary'
+        = submit_tag 'Save Changes (Disabled for Demo)', class: 'btn btn-primary', disabled: true

@@ -16,21 +16,14 @@ class TutorsController < ApplicationController
     tid = session[:current_user_id]
     sid = @meeting.tutee.id
 
-    begin
-      TutorMailer.meeting_complete_notice(tid, sid).deliver_now
-    rescue StandardError
-      flash[:notice] = "An error occured when sending out emails. Meeting was not marked as complete, please contact an administrator if this error persists."
-    else
-      flash[:success] = "Your meeting was successfully finished."
-      @eval = Evaluation.create(meeting_id: @meeting.id)
-      QuestionTemplate.ordered_list_of_question_templates.each do |qt|
-        if qt.is_active
-          Question.create(evaluation_id: @eval.id, question_template_id: qt.id, prompt: qt.prompt, is_admin_only: qt.is_admin_only)
-        end
+    flash[:success] = "Your meeting was successfully finished."
+    @eval = Evaluation.create(meeting_id: @meeting.id)
+    QuestionTemplate.ordered_list_of_question_templates.each do |qt|
+      if qt.is_active
+        Question.create(evaluation_id: @eval.id, question_template_id: qt.id, prompt: qt.prompt, is_admin_only: qt.is_admin_only)
       end
-      @meeting.update!(status: 'finished')
     end
-
+    @meeting.update!(status: 'finished')
     redirect_back(fallback_location:"/")
   end
 
@@ -51,17 +44,8 @@ class TutorsController < ApplicationController
     @request_id = @meeting.request.id
     @time = Time.strptime(params["meeting_date"] + params["meeting_time"], "%Y-%m-%d%H:%M")
     @loc = params[:meeting_location]
-
-    tutor_message = "Hi, your meeting has been confirmed for " + @time.strftime("%A, %b %d at %l:%M %p") + " at " + @loc + "."
-
-    begin
-      TutorMailer.meeting_confirmation(@tutor_id, @tutee_id, tutor_message, @request_id).deliver_now
-    rescue StandardError
-      flash[:notice] = "An error occured when sending out confirmation emails."
-    else
-      flash[:success] = "Successfully confirmed meeting details!"
-      @meeting.update(set_time: @time, set_location: @loc, status: 'scheduled');
-    end
+    flash[:success] = "Successfully confirmed meeting details!"
+    @meeting.update(set_time: @time, set_location: @loc, status: 'scheduled');
     redirect_back(fallback_location:"/")
   end
 
@@ -81,15 +65,9 @@ class TutorsController < ApplicationController
       return redirect_back(fallback_location:"/")
     end
 
-    begin
-      TutorMailer.invite_student(tutor_id, tutee_id, request_id, tutor_message).deliver_now
-    rescue StandardError
-      flash[:notice] = "An error occured when sending out emails."
-    else
-      flash[:success] = "Successfully matched!"
-      Meeting.create!(tutor_id: tutor_id, request_id: request_id, status: 'unscheduled')
-      Request.find(request_id).update(status: 'matched')
-    end
+    flash[:success] = "Successfully matched!"
+    Meeting.create!(tutor_id: tutor_id, request_id: request_id, status: 'unscheduled')
+    Request.find(request_id).update(status: 'matched')
     redirect_back(fallback_location:"/")
   end
 

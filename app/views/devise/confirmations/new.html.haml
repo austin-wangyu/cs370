@@ -14,7 +14,7 @@
            :oninput => "this.setCustomValidity('')", :oninvalid => "this.setCustomValidity('Enter berkeley email only')"
           .form-row.align-items-center
             .col
-              = f.submit "Resend confirmation instructions", class: 'btn btn-info btn-md'
+              = f.submit "Resend confirmation instructions (Disabled for Demo)", class: 'btn btn-info btn-md', disabled: true
             .col
               #register-link.text-right
                 %br

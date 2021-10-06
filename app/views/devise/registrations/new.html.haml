@@ -69,5 +69,5 @@
                 =f.label :transfer, 'Transfer Student?',  class:"text-white pl-1"
                 =f.select :transfer, [['Yes',true],['No',false]], {include_hidden: false}, class:"selectpicker form-control custom-hide-empty-option",  required:true, title: 'Maybe?'
         .row.form-group
-          .col-2.pr-1
-            =f.submit "Create Account", class:"btn btn-info form-control"
+          .col-5.pr-1
+            =f.submit "Create Account (Disabled for Demo)", class:"btn btn-info form-control", disabled: true
