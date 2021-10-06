@@ -12,7 +12,7 @@
             %br
             Please send any bug reports or feature suggestions to wangyu.austin@berkeley.edu, thanks!
           = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-            .form-group
+            .form-group.pt-2
               = f.label :email, class: 'text-info'
               %br/
               = f.email_field :email, autofocus: true, class: 'form-control', id: 'username', autocomplete: "email", :placeholder => 'e.g. name@berkeley.edu', :pattern => "[a-z0-9._%+-]+@berkeley.edu",
