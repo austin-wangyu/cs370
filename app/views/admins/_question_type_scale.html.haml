@@ -22,5 +22,10 @@
     .form-row
       .col
         %p.mb-1.text-muted.custom_small
-          One word representation
+          One word descriptor
           = text_field_tag "qt_#{id}_details_descriptor", details['descriptor'], options={class: 'form-control form-control-sm', required:'true'}
+    .form-row
+      .col
+        %p.mb-1.text-muted.custom_small
+          Starting value
+          = text_field_tag "qt_#{id}_details_start_val", details['start_val'], options={class: 'form-control form-control-sm', required:'true', type:'number'}
