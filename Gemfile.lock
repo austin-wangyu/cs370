@@ -100,13 +100,6 @@ GEM
     codeclimate-test-reporter (1.0.9)
       simplecov (<= 0.13)
     coderay (1.1.2)
-    coffee-rails (4.2.2)
-      coffee-script (>= 2.2.0)
-      railties (>= 4.0.0)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.12.2)
     concord (0.1.5)
       adamantium (~> 0.2.0)
       equalizer (~> 0.0.9)
@@ -152,8 +145,6 @@ GEM
       railties (>= 5.0, < 7)
       rexml (~> 3.0)
       webrick (~> 1.7)
-    cucumber-rails-training-wheels (1.0.0)
-      cucumber-rails (>= 1.1.1)
     cucumber-tag-expressions (3.0.1)
     cucumber-wire (6.1.1)
       cucumber-core (~> 10.0, >= 10.0.1)
@@ -414,12 +405,6 @@ GEM
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
-    sass-rails (5.0.7)
-      railties (>= 4.0.0, < 6)
-      sass (~> 3.1)
-      sprockets (>= 2.8, < 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
-      tilt (>= 1.1, < 3)
     sassc (2.0.1)
       ffi (~> 1.9)
       rake
@@ -458,7 +443,6 @@ GEM
       sprockets (>= 3.0.0)
     sys-uname (1.2.2)
       ffi (~> 1.1)
-    tempfile (0.1.1)
     temple (0.8.1)
     term-ansicolor (1.7.1)
       tins (~> 1.0)
@@ -496,7 +480,6 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
-    webdriver (0.18.0)
     webrick (1.7.0)
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
@@ -518,10 +501,8 @@ DEPENDENCIES
   bootstrap-glyphicons
   byebug
   codeclimate-test-reporter
-  coffee-rails (~> 4.2)
   coveralls
   cucumber-rails
-  cucumber-rails-training-wheels
   database_cleaner
   devise
   factory_bot_rails (~> 5.0)
@@ -540,23 +521,19 @@ DEPENDENCIES
   rspec
   rspec-activemodel-mocks
   rspec-rails (~> 3.8)
-  rubyzip
-  sass-rails (~> 5.0)
   selenium-webdriver (~> 4.0.0.rc1)
   simplecov
   simplecov-console
   spring
   spring-watcher-listen (~> 2.0.0)
-  tempfile
   tinymce-rails (~> 4.3, >= 4.3.13)
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
-  webdriver
 
 RUBY VERSION
    ruby 2.5.3p105
 
 BUNDLED WITH
-   2.2.27
+   2.3.4

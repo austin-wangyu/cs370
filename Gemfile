@@ -9,8 +9,6 @@ gem 'rails', '~> 5.2.2'
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -33,11 +31,14 @@ gem 'devise'
 
 gem 'rspec-activemodel-mocks'
 
+group :development, :test, :production do
+  gem 'rspec-rails', '~> 3.8'
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_bot_rails', '~> 5.0'
-  gem 'rspec-rails', '~> 3.8'
   gem 'database_cleaner'
 end
 
@@ -69,7 +70,6 @@ gem 'tinymce-rails', '~> 4.3', '>= 4.3.13'
 
 group :production do
   gem 'rails_12factor'  # Heroku-specific production settings
-  gem 'rspec-rails', '~> 3.8'
 end
 
 # setup Cucumber, RSpec, Guard support
