@@ -517,7 +517,7 @@ DEPENDENCIES
   metric_fu
   pg (>= 0.18, < 2.0)
   puma (~> 3.11)
-  rails (~> 6.0)
+  rails (~> 6.1)
   rails-controller-testing
   rails_12factor
   rspec
