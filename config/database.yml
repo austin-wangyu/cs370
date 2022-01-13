@@ -14,9 +14,9 @@
 # Configure Using Gemfile
 # gem 'pg'
 
-before_script:
-  - psql -c 'create user root with superuser;' -U postgres
-    
+#before_script:
+#  - psql -c 'create user root with superuser;' -U postgres
+
 default: &default
   adapter: postgresql
   encoding: unicode
@@ -28,7 +28,7 @@ default: &default
 
   #username: divineechidume
   #password: 7753
-  
+
 
 development:
   <<: *default

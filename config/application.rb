@@ -10,8 +10,12 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
 require "action_cable/engine"
+require "active_storage/engine"
+require "action_mailbox/engine"
+
 require "sprockets/railtie"
 require 'csv'
+require "active_storage/engine"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -21,9 +25,9 @@ Bundler.require(*Rails.groups)
 module Cs370
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 6.0
     config.time_zone = "Pacific Time (US & Canada)"
-    config.autoload_paths += %W(#{config.root}/lib)
+    config.eager_load_paths += %W(#{config.root}/lib)
 
 
     # Settings in config/environments/* take precedence over those specified here.
